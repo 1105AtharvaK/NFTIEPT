@@ -7,7 +7,7 @@ export const NETWORKS = {
   SEPOLIA: {
     chainId: '0xaa36a7',
     chainName: 'Sepolia',
-    rpcUrl: 'https://sepolia.infura.io/v3/',
+    rpcUrl: 'https://eth-sepolia.g.alchemy.com/v2/demo', // Using Alchemy's public demo endpoint
     blockExplorerUrl: 'https://sepolia.etherscan.io',
     nativeCurrency: {
       name: 'Sepolia ETH',
@@ -36,8 +36,8 @@ export const NFT_RECEIPT_ABI = [
 
 // Contract addresses on different networks
 export const CONTRACT_ADDRESSES = {
-  [NETWORKS.SEPOLIA.chainId]: '0x1234567890123456789012345678901234567890', // Replace with your real Sepolia contract address
-  [NETWORKS.MUMBAI.chainId]: '0x0000000000000000000000000000000000000000', // Replace with real contract address
+  [NETWORKS.SEPOLIA.chainId]: import.meta.env.VITE_SEPOLIA_CONTRACT_ADDRESS || '0x1234567890123456789012345678901234567890',
+  [NETWORKS.MUMBAI.chainId]: import.meta.env.VITE_MUMBAI_CONTRACT_ADDRESS || '0x0000000000000000000000000000000000000000',
 };
 
 interface WalletContextType {

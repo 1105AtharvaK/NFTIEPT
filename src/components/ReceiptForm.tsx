@@ -39,11 +39,16 @@ const ReceiptForm = () => {
       // Convert ETH to Wei
       const priceInWei = ethers.utils.parseEther(price);
       
+      console.log('Contract address:', contract.address);
+      console.log('Price in Wei:', priceInWei.toString());
+      console.log('Current network:', await contract.signer.provider?.getNetwork());
+      
       // Call contract function with value parameter
       const tx = await contract.mintReceipt(itemName, priceInWei, {
         value: priceInWei // Add the value parameter to send ETH with the transaction
       });
       
+      console.log('Transaction hash:', tx.hash);
       toast.info('Transaction submitted. Waiting for confirmation...', {
         duration: 10000
       });
@@ -73,9 +78,15 @@ const ReceiptForm = () => {
       // Reset form
       setItemName('');
       setPrice('');
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error minting receipt:', error);
-      toast.error('Failed to mint receipt. Please try again.');
+      console.error('Error details:', {
+        message: error.message,
+        code: error.code,
+        data: error.data,
+        transaction: error.transaction
+      });
+      toast.error(`Failed to mint receipt: ${error.message || 'Please try again.'}`);
     } finally {
       setIsSubmitting(false);
     }
